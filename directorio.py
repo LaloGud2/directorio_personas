@@ -2,21 +2,11 @@ import csv
 import os
 
 def obtener_ruta_csv():
-    # Ruta absoluta de este archivo
     ruta_actual = os.path.abspath(__file__)
-
-    # Carpeta del proyecto: subir un nivel desde /src/
     carpeta_proyecto = os.path.dirname(os.path.dirname(ruta_actual))
-
-    # Carpeta data al mismo nivel que src
     carpeta_data = os.path.join(carpeta_proyecto, "data")
-
-    # Crear carpeta si no existe
     os.makedirs(carpeta_data, exist_ok=True)
-
-    # Ruta completa del archivo personas.csv
     return os.path.join(carpeta_data, "personas.csv")
-
 
 def inicializar_csv():
     ruta = obtener_ruta_csv()
@@ -24,7 +14,6 @@ def inicializar_csv():
         with open(ruta, "w", newline="", encoding="utf-8") as archivo:
             escritor = csv.writer(archivo)
             escritor.writerow(["Nombre", "Número"])
-
 
 def guardar_persona(nombre, numero):
     try:
@@ -36,3 +25,8 @@ def guardar_persona(nombre, numero):
     except Exception as e:
         print("Error al guardar:", e)
         return False
+
+if __name__ == "__main__":
+    inicializar_csv()
+    guardar_persona("Juan", "12345")
+    print("Todo listo, se agregó la persona.")
